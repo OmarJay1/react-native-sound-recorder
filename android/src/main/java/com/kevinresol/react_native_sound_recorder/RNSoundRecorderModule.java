@@ -145,9 +145,18 @@ public class RNSoundRecorderModule extends ReactContextBaseJavaModule {
     mRecorder.release();
     mRecorder = null;
 
+    int duration = 0;
+
+  try {
     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
     retriever.setDataSource(mOutput);
-    int duration = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+    duration = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+  }
+    catch(Exception e)
+    {
+      // do nothing, just accept 0 duration
+    }
+
 
     WritableMap response = Arguments.createMap();
 
